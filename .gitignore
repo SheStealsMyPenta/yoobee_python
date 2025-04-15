@@ -1,0 +1,12 @@
+# 忽略 Python 虚拟环境
+venv/
+
+# 忽略 Python 编译文件
+__pycache__/
+*.pyc
+
+# 忽略 VSCode 配置（如果你使用 VSCode）
+.vscode/
+
+# Jupyter Notebook 检查点（如果你用 notebook）
+.ipynb_checkpoints/
