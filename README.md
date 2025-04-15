@@ -1,2 +1,5 @@
 # yoobee_python
-learning python
+Activity 1:
+    We create a 1-D array containing the numbers from 1 to 10. The shape of the array is (10,), which means there are 10 elements in the first (and only) dimension. Then we can easily multiply every element by 2 using array * 2, a feature provided by the NumPy library.
+Acitivity 2: 
+    the argument is 2-D array, and we can consider it as a table or a matrix. each row of that is a grade of a single student, and each colume is the grade of a single subject, so for the first practice is to calculate the average score of the each row and the second is to calcualte the average of a each column. For the third one, we should first calculate the sum of each row, and find the highest one and output that index. and the final one, we add the third column value by 5 by using scores[:, 2] += 5, which means for every row and the third column.
