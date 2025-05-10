@@ -1,0 +1,16 @@
+The Car Rental System streamline the process of renting vehicles,
+
+
+Cusomer: 
+    •	Register an account and update personal information.
+	•	Log in securely and manage profile settings.
+    •	Search for available vehicles based on preferences (date, type, location).
+	•	Make reservations and specify pickup and drop-off locations.
+    •	Contact support for assistance with booking, billing, or vehicle issues.
+Car manager:
+    •	Add, update, and remove vehicle information in the system.
+	•	Schedule and track vehicle maintenance and servicing.
+    •	View, approve, modify, or cancel customer reservations.
+	•	Manage vehicle availability and booking schedules.
+    •	Process payments and manage billing.
+	•	Handle refunds and adjust invoices when needed.
