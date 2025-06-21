@@ -3,3 +3,28 @@
 2. the second test is to verify the functionability that it can correct judge right all the char is upper case 
 
 3. third test is to asset the split function can correctly split a sentence with specific char.
+
+4. it will raise error if any test is failed to pass
+
+(base) laodazuikeai@Laodazuikeais-MacBook-Pro week11 % python test.py
+...F
+======================================================================
+FAIL: test_upper (__main__.TestStringMethods)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/laodazuikeai/PycharmProjects/pythonProject/yoobee_python/week11/test.py", line 8, in test_upper
+    self.assertEqual('foo'.upper(), 'FOO!')
+AssertionError: 'FOO' != 'FOO!'
+- FOO
++ FOO!
+?    +
+
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.000s
+
+FAILED (failures=1)
+
+5. with self.assertRaises(TypeError):
+    s.split(2)
+ this one is to test if the exception will throwing out 
