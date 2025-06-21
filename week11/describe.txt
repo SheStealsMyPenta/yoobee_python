@@ -1,0 +1,5 @@
+1. test upper is to test if the function can make the lower case vocabutary to upper case, and it will return true if the result is equal to FOO.
+
+2. the second test is to verify the functionability that it can correct judge right all the char is upper case 
+
+3. third test is to asset the split function can correctly split a sentence with specific char.

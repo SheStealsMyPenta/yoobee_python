@@ -1,3 +1,5 @@
+import random
+
 def print_board(cells):
     # Print the current board layout
     print("\n")
@@ -9,60 +11,96 @@ def print_board(cells):
     print("\n")
 
 def check_winner(cells, mark):
-    # Define all winning triplets (rows, columns, diagonals)
+    # Define all winning triplets
     wins = [
-        (0,1,2), (3,4,5), (6,7,8),  # rows
-        (0,3,6), (1,4,7), (2,5,8),  # columns
-        (0,4,8), (2,4,6)            # diagonals
+        (0,1,2), (3,4,5), (6,7,8),   # rows
+        (0,3,6), (1,4,7), (2,5,8),   # columns
+        (0,4,8), (2,4,6)             # diagonals
     ]
-    # Return True if any winning triplet is occupied by the same mark
     return any(cells[a] == cells[b] == cells[c] == mark for a, b, c in wins)
 
 def is_draw(cells):
-    # Return True if all cells are filled with X or O
     return all(cell in ['X', 'O'] for cell in cells)
 
-def main():
-    # Read player names (defaulting if left blank)
-    p1 = input("Enter name for Player 1 (X): ").strip() or "Player1"
-    p2 = input("Enter name for Player 2 (O): ").strip() or "Player2"
-    players = [(p1, 'X'), (p2, 'O')]
+def get_ai_move(cells, ai_mark, player_mark):
+    # Minimax-based unbeatable AI
+    def minimax(cells, is_maximizing):
+        if check_winner(cells, ai_mark):
+            return 1
+        elif check_winner(cells, player_mark):
+            return -1
+        elif is_draw(cells):
+            return 0
 
-    # Initialize cells labeled 1–9
+        scores = []
+        for i in range(9):
+            if cells[i] not in ['X', 'O']:
+                cells[i] = ai_mark if is_maximizing else player_mark
+                score = minimax(cells, not is_maximizing)
+                scores.append((score, i))
+                cells[i] = str(i + 1)
+
+        return max(scores)[0] if is_maximizing else min(scores)[0]
+
+    best_score = -float('inf')
+    best_move = None
+    for i in range(9):
+        if cells[i] not in ['X', 'O']:
+            cells[i] = ai_mark
+            score = minimax(cells, False)
+            cells[i] = str(i + 1)
+            if score > best_score:
+                best_score = score
+                best_move = i
+
+    return best_move
+
+def main():
+    # Ask for game mode
+    mode = input("Choose mode: 1 - PvP (2 Players), 2 - PvE (vs AI): ").strip()
+    if mode == "2":
+        p1 = input("Enter your name (X): ").strip() or "Player"
+        p2 = "Computer"
+        players = [(p1, 'X'), (p2, 'O')]
+        ai_enabled = True
+    else:
+        p1 = input("Enter name for Player 1 (X): ").strip() or "Player1"
+        p2 = input("Enter name for Player 2 (O): ").strip() or "Player2"
+        players = [(p1, 'X'), (p2, 'O')]
+        ai_enabled = False
+
     cells = [str(i) for i in range(1, 10)]
-    turn = 0  # 0 ⇒ Player 1's turn; 1 ⇒ Player 2's turn
+    turn = 0
 
     while True:
         name, mark = players[turn]
         print_board(cells)
 
-        # Prompt for move choice
-        choice = input(f"{name} ({mark}), choose a cell (1-9): ")
-        if not choice.isdigit() or int(choice) not in range(1, 10):
-            print("Invalid input! Please enter a number between 1 and 9.")
-            continue
+        if ai_enabled and name == "Computer":
+            print("Computer is thinking...")
+            idx = get_ai_move(cells, 'O', 'X')
+        else:
+            choice = input(f"{name} ({mark}), choose a cell (1-9): ")
+            if not choice.isdigit() or int(choice) not in range(1, 10):
+                print("Invalid input! Please enter a number between 1 and 9.")
+                continue
+            idx = int(choice) - 1
+            if cells[idx] in ['X', 'O']:
+                print("That cell is already occupied. Please choose another one.")
+                continue
 
-        idx = int(choice) - 1
-        if cells[idx] in ['X', 'O']:
-            print("That cell is already occupied. Please choose another one.")
-            continue
-
-        # Place the mark on the chosen cell
         cells[idx] = mark
 
-        # Check for a win
         if check_winner(cells, mark):
             print_board(cells)
-            print(f" Congratulations {name} ({mark})! You win!")
+            print(f"🎉 Congratulations {name} ({mark})! You win!")
             break
 
-        # Check for a draw
         if is_draw(cells):
             print_board(cells)
             print("It's a draw!")
             break
 
-        # Switch turns
         turn = 1 - turn
 
 if __name__ == "__main__":
