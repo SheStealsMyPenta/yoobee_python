@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Upload and Display Image</title>
+</head>
+<body>
+  <h1>Upload an Image</h1>
+  <form method="POST" enctype="multipart/form-data">
+    <input type="file" name="file">
+    <input type="submit" value="Upload">
+  </form>
+  
+  {% if filename %}
+  <h2>Uploaded Image:</h2>
+  <img src="{{ url_for('display_image', filename=filename) }}">
+  {% endif %}
+</body>
+</html>
